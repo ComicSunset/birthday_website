@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You 💖</title>
+
+<style>
+body{
+ margin:0;
+ font-family:'Segoe UI';
+ background:url("valentine39s-day-background-with-rose-bouquet-gift-box-flat-lay.jpg") center/cover no-repeat;
+ color:white;
+ overflow:hidden;
+}
+
+/* 🌫️ BACKGROUND ANIMATION */
+.bg-anim{
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ height:100%;
+ overflow:hidden;
+ z-index:-2;
+}
+
+.circle{
+ position:absolute;
+ border-radius:50%;
+ background:rgba(255,105,180,0.2);
+ animation:floatUp linear infinite;
+ filter:blur(2px);
+}
+
+@keyframes floatUp{
+ 0%{transform:translateY(100vh) scale(0.5);opacity:0;}
+ 50%{opacity:0.6;}
+ 100%{transform:translateY(-10vh) scale(1.2);opacity:0;}
+}
+
+/* CENTER */
+.center{
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ height:100vh;
+ flex-direction:column;
+ text-align:center;
+ position:relative;
+}
+
+/* HIDE */
+#intro2,#login,#slides,#finalCode,#letter,#unlock,#ending{display:none;}
+
+/* PETALS */
+.emoji{
+ position:absolute;
+ top:-50px;
+ font-size:22px;
+ animation:fall linear forwards;
+}
+@keyframes fall{to{transform:translateY(110vh);}}
+
+/* FADE */
+.fade{animation:fadeIn 1.5s ease;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+
+/* IMAGE */
+.main{
+ width:150px;
+ height:200px;
+ object-fit:cover;
+ border-radius:10px;
+ animation:pulse 2.5s infinite;
+}
+@keyframes pulse{
+ 0%{transform:scale(1);}
+ 50%{transform:scale(1.05);}
+ 100%{transform:scale(1);}
+}
+
+/* BLUR */
+.bg-blur{
+ position:absolute;
+ width:100%;
+ height:100%;
+ background-size:cover;
+ filter:blur(10px) brightness(0.5);
+ z-index:-1;
+}
+
+/* CLOUD */
+.cloud{
+ background:white;
+ color:black;
+ padding:10px 20px;
+ border-radius:40px;
+ margin-bottom:10px;
+}
+
+/* BUTTON */
+button{
+ padding:10px 20px;
+ border:none;
+ border-radius:20px;
+ margin:10px;
+ background:#38bdf8;
+ cursor:pointer;
+}
+
+/* LETTER */
+#letter{
+ background:url("letter.jpeg") center/cover;
+ color:black;
+ padding:20px;
+}
+
+/* GLOW */
+.glow-name{
+ font-size:45px;
+ font-weight:bold;
+ color:#fff;
+ text-shadow:0 0 10px #ff69b4,0 0 20px #ff69b4,0 0 40px #ff1493;
+ animation:glowPulse 2s infinite;
+}
+@keyframes glowPulse{
+ 0%{transform:scale(1);opacity:0.8;}
+ 50%{transform:scale(1.15);opacity:1;}
+ 100%{transform:scale(1);opacity:0.8;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🌫️ BG -->
+<div class="bg-anim" id="bgAnim"></div>
+
+<div class="center" id="intro1"></div>
+
+<div class="center" id="intro2">
+<img src="Valentine Corgi GIF.gif" width="140">
+<h2>Ready for the surprise?</h2>
+<button onclick="goLogin()">Yes 💖</button>
+</div>
+
+<div class="center" id="login">
+<h2>Enter Code 💌</h2>
+<input id="code">
+<button onclick="checkCode()">Enter</button>
+</div>
+
+<div class="center" id="unlock">
+<h2>Some memories don’t fade…</h2>
+<button onclick="startStory()">Unlock Memories 💌</button>
+</div>
+
+<div id="slides"></div>
+
+<div class="center" id="finalCode">
+<h2>Enter Final Code 🔐</h2>
+<input id="code2">
+<button onclick="checkFinal()">Open Letter 💌</button>
+</div>
+
+<div class="center" id="letter">
+<h2 id="letterTitle"></h2>
+<p id="text"></p>
+<img src="bear kiss GIF.gif" width="200">
+</div>
+
+<div class="center" id="ending">
+<h1 id="name" class="glow-name"></h1>
+</div>
+
+<audio id="music" loop>
+<source src="The-Birthday-Gift-MassTamilan.fm.mp3">
+</audio>
+
+<script>
+
+/* 🌫️ BACKGROUND */
+for(let i=0;i<25;i++){
+ let c=document.createElement("div");
+ c.className="circle";
+ let size=Math.random()*40+20;
+ c.style.width=size+"px";
+ c.style.height=size+"px";
+ c.style.left=Math.random()*100+"vw";
+ c.style.animationDuration=(8+Math.random()*10)+"s";
+ c.style.animationDelay=Math.random()*5+"s";
+ bgAnim.appendChild(c);
+}
+
+/* INTRO */
+setInterval(()=>{
+ let e=document.createElement("div");
+ e.className="emoji";
+ e.innerHTML=Math.random()>0.5?"🌸":"💖";
+ e.style.left=Math.random()*100+"vw";
+ document.body.appendChild(e);
+ setTimeout(()=>e.remove(),6000);
+},150);
+
+setTimeout(()=>{
+ intro1.style.display="none";
+ intro2.style.display="flex";
+},2000);
+
+function goLogin(){
+ intro2.style.display="none";
+ login.style.display="flex";
+}
+
+/* VOICE */
+function speak(text){
+ let s=new SpeechSynthesisUtterance(text);
+ s.rate=0.9;
+ speechSynthesis.cancel();
+ speechSynthesis.speak(s);
+}
+
+/* PASSWORD */
+function checkCode(){
+ if(code.value.toLowerCase()=="teddy"){
+  login.style.display="none";
+  let m=music; m.volume=0; m.play();
+  let v=0;
+  let f=setInterval(()=>{ if(v<0.6){v+=0.03;m.volume=v;} else clearInterval(f);},200);
+  unlock.style.display="flex";
+ }
+}
+
+function startStory(){
+ unlock.style.display="none";
+ slides.style.display="block";
+ showSlide();
+}
+
+/* SLIDES */
+const pages=[...Array(20)].map((_,i)=>({
+ img:`img${i+1}.jpg`,
+ text:[
+ "You are special because you always cared deeply.",
+ "Your smile could change even my worst days.",
+ "You had a heart that gave without expecting.",
+ "You made simple moments feel meaningful.",
+ "You stayed when things were not easy.",
+ "You were honest even when it hurt.",
+ "You brought peace into my chaos.",
+ "You loved in a way I never understood before.",
+ "You saw good in me even when I couldn’t.",
+ "You deserved more than what I gave.",
+ "You became an important part of my life.",
+ "You taught me what real care feels like.",
+ "You showed me what matters.",
+ "You made me value honesty.",
+ "You taught me responsibility.",
+ "You changed how I see love.",
+ "You made me better.",
+ "You helped me grow.",
+ "Some people inspire you to become better… you are one of them.",
+ "I truly wish you happiness, peace, and everything beautiful ahead."
+ ][i]
+}));
+
+let i=0;
+
+function showSlide(){
+ if(i>=pages.length){
+  setTimeout(()=>{slides.innerHTML="";finalCode.style.display="flex";},2000);
+  return;
+ }
+
+ let p=pages[i];
+
+ slides.innerHTML=`
+ <div class="center fade">
+  <div class="bg-blur" style="background-image:url('${p.img}')"></div>
+  <div class="cloud">${p.text}</div>
+  <img class="main" src="${p.img}">
+ </div>`;
+
+ setTimeout(()=>speak(p.text),500);
+ i++;
+ setTimeout(showSlide,4000);
+}
+
+/* FINAL */
+function checkFinal(){
+ if(code2.value.toLowerCase()=="sree"){
+  finalCode.style.display="none";
+  openLetter();
+ }
+}
+
+function openLetter(){
+ letter.style.display="flex";
+ typeTitle();
+}
+
+let title="Happy Birthday Sree 💖";
+let ti=0;
+
+function typeTitle(){
+ if(ti<title.length){
+  letterTitle.innerHTML+=title[ti++];
+  setTimeout(typeTitle,100);
+ } else typeText();
+}
+
+let msg=`I genuinely hope this year brings you happiness, peace, and success.
+
+Take things one step at a time… don’t stress too much.
+
+Take care of yourself and stay happy and healthy.`;
+
+let j=0;
+
+function typeText(){
+ if(j<msg.length){
+  text.innerHTML+=msg[j++];
+  setTimeout(typeText,30);
+ } else setTimeout(showEnding,3000);
+}
+
+function showEnding(){
+ letter.style.display="none";
+ ending.style.display="flex";
+ let name="Sree 💖",k=0;
+ function t(){
+  if(k<name.length){document.getElementById("name").innerHTML+=name[k++];setTimeout(t,150);}
+ }
+ t();
+}
+</script>
+
+</body>
+</html>
