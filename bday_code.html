@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>For You 💖</title>
+
+<style>
+body{
+ margin:0;
+ font-family:Arial;
+ background:url("valentine39s-day-background-with-rose-bouquet-gift-box-flat-lay.jpg") center/cover no-repeat;
+ color:white;
+ overflow:hidden;
+}
+
+.center{
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ height:100vh;
+ flex-direction:column;
+ text-align:center;
+}
+
+#intro2,#login,#unlock,#slides,#finalCode,#letter,#ending,#gift,#finalScene{
+ display:none;
+}
+
+button{
+ padding:10px 20px;
+ border-radius:20px;
+ border:none;
+ background:#38bdf8;
+}
+
+/* LOGIN ANIMATION */
+#loginText{
+ font-size:22px;
+ white-space:nowrap;
+ overflow:hidden;
+ border-right:3px solid white;
+ width:0;
+ margin-bottom:15px;
+ animation:typing 3s steps(40,end) forwards,
+          blink 0.7s infinite,
+          heartbeat 1.5s infinite;
+}
+
+@keyframes typing{from{width:0}to{width:350px}}
+@keyframes blink{50%{border-color:transparent}}
+@keyframes heartbeat{
+ 0%{text-shadow:0 0 5px pink;}
+ 50%{text-shadow:0 0 20px pink;}
+ 100%{text-shadow:0 0 5px pink;}
+}
+
+/* SLIDES */
+.bg-blur{
+ position:absolute;
+ width:100%;
+ height:100%;
+ background-size:cover;
+ filter:blur(12px) brightness(0.5);
+ z-index:-1;
+}
+
+.cloud{
+ background:white;
+ color:black;
+ padding:12px 20px;
+ border-radius:40px;
+ margin-bottom:10px;
+}
+
+.main{
+ width:180px;
+ border-radius:10px;
+}
+
+/* FINAL SCENE */
+#finalScene{
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ height:100%;
+ background-image:url("./final_bg.jpeg");
+ background-size:cover;
+ background-position:center;
+ background-repeat:no-repeat;
+ z-index:999;
+}
+
+/* FAMILY */
+#familyContainer{
+ position:absolute;
+ top:50%;
+ left:50%;
+ transform:translate(-50%,-50%);
+ text-align:center;
+ opacity:0;
+ transition:2s;
+}
+
+#familyPhoto{
+ width:260px;
+ border-radius:15px;
+ box-shadow:0 0 20px white;
+}
+
+#finalMsg{
+ margin-top:10px;
+ font-size:18px;
+ animation:float 3s infinite;
+}
+
+@keyframes float{
+ 0%{transform:translateY(0);}
+ 50%{transform:translateY(-10px);}
+ 100%{transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="center" id="intro1">Loading...</div>
+
+<div class="center" id="intro2">
+<img src="cat.gif" width="140">
+<h2>Ready for the surprise? 💖</h2>
+<button onclick="goLogin()">Yes 💌</button>
+</div>
+
+<!-- LOGIN -->
+<div class="center" id="login">
+<h2 id="loginText">💌 PLEASE ENTER UR SOUL TO UNLOCK 💖✨</h2>
+<input id="code">
+<br><br>
+<button onclick="checkCode()">Enter 💖</button>
+</div>
+
+<!-- AFTER TEDDY -->
+<div class="center" id="unlock">
+<img src="dog.gif" width="180">
+<h2>Let’s begin this little journey 💖✨</h2>
+<button onclick="startStory()">Start 💌</button>
+</div>
+
+<div id="slides"></div>
+
+<!-- BEFORE LETTER -->
+<div class="center" id="finalCode">
+<img src="princess.gif" width="180">
+
+<h2>✨ Not everyone gets to read this… only you 💖</h2>
+
+<input id="code2">
+<br><br>
+<button onclick="checkFinal()">Open 💌</button>
+</div>
+
+<!-- LETTER -->
+<div class="center" id="letter">
+<p id="text"></p>
+<img src="bear.gif" width="150">
+</div>
+
+<div class="center" id="ending">
+<h1 id="name"></h1>
+</div>
+
+<div class="center" id="gift">
+<h2>🎁 One last thing… just for you 💖</h2>
+<button onclick="showGift()">Open 💝</button>
+</div>
+
+<!-- FINAL -->
+<div id="finalScene">
+<div id="familyContainer">
+<img src="family.jpg" id="familyPhoto">
+<p id="finalMsg">
+YOUR FAMILY IS YOUR STRENGTH 💖<br>
+NEVER UNDERESTIMATE YOURSELF 🌸<br>
+CAN I BE ONE OF THE PILLARS OF YOUR STRENGTH? 🤍
+</p>
+</div>
+
+<audio id="familyBgm" src="family_bgm.mp3" loop></audio>
+</div>
+
+<audio id="music" src="The-Birthday-Gift-MassTamilan.fm.mp3" loop></audio>
+
+<script>
+
+/* intro */
+setTimeout(()=>{
+ intro1.style.display="none";
+ intro2.style.display="flex";
+},2000);
+
+function goLogin(){
+ intro2.style.display="none";
+ login.style.display="flex";
+}
+
+function checkCode(){
+ if(code.value=="teddy"){
+  login.style.display="none";
+  music.play().catch(()=>{});
+  unlock.style.display="flex";
+ }
+}
+
+function startStory(){
+ unlock.style.display="none";
+ slides.style.display="block";
+ showSlide();
+}
+
+/* QUOTES */
+const quotes=[ ...Array(22).keys() ].map(i=>[
+"You are special because you always cared deeply.",
+"Your smile could change even my worst days.",
+"You had a heart that gave without expecting.",
+"You made simple moments feel meaningful.",
+"You stayed when things were not easy.",
+"You were honest even when it hurt.",
+"You brought peace into my chaos.",
+"You loved in a way I never understood before.",
+"You saw good in me even when I couldn’t.",
+"You deserved more than what I gave.",
+"You became an important part of my life.",
+"You taught me what real care feels like.",
+"You showed me what truly matters.",
+"You made me understand the value of honesty.",
+"You taught me responsibility.",
+"You changed the way I look at things.",
+"You made me better.",
+"You helped me grow.",
+"You inspire growth.",
+"I wish you peace.",
+"You bring calm.",
+"You deserve happiness."
+][i]);
+
+let i=0;
+
+function showSlide(){
+ if(i>=22){
+  slides.innerHTML="";
+  finalCode.style.display="flex";
+  return;
+ }
+
+ slides.innerHTML=`
+ <div class="center">
+   <div class="bg-blur" style="background-image:url('img${i+1}.jpg')"></div>
+   <div class="cloud">${quotes[i]}</div>
+   <img class="main" src="img${i+1}.jpg">
+ </div>
+ `;
+
+ i++;
+ setTimeout(showSlide,4000);
+}
+
+/* LETTER TYPE EFFECT */
+function typeText(text, i=0){
+ if(i < text.length){
+  document.getElementById("text").innerHTML += text.charAt(i);
+  setTimeout(()=>typeText(text, i+1), 30);
+ }
+}
+
+function checkFinal(){
+ if(code2.value=="sree"){
+  finalCode.style.display="none";
+  letter.style.display="flex";
+
+  let message="I genuinely hope this year brings you happiness, peace, and beautiful moments 💖✨🌸";
+  typeText(message);
+
+  setTimeout(showEnding,5000);
+ }
+}
+
+function showEnding(){
+ letter.style.display="none";
+ ending.style.display="flex";
+ name.innerHTML="Sree 💖";
+
+ setTimeout(()=>{
+  ending.style.display="none";
+  gift.style.display="flex";
+ },3000);
+}
+
+/* FINAL */
+function showGift(){
+ music.pause();
+ familyBgm.play().catch(()=>{});
+
+ gift.style.display="none";
+ finalScene.style.display="block";
+
+ setTimeout(()=>{
+  familyContainer.style.opacity=1;
+ },2000);
+}
+
+</script>
+
+</body>
+</html>
