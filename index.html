@@ -22,7 +22,7 @@ body{
  text-align:center;
 }
 
-#intro2,#login,#unlock,#slides,#finalCode,#letter,#ending,#gift,#finalScene{
+#intro2,#login,#unlock,#slides,#finalCode,#letter,#ending,#gift,#finalScene,#memoryScene{
  display:none;
 }
 
@@ -31,6 +31,8 @@ button{
  border-radius:20px;
  border:none;
  background:#38bdf8;
+ color:white;
+ cursor:pointer;
 }
 
 /* LOGIN ANIMATION */
@@ -46,8 +48,15 @@ button{
           heartbeat 1.5s infinite;
 }
 
-@keyframes typing{from{width:0}to{width:350px}}
-@keyframes blink{50%{border-color:transparent}}
+@keyframes typing{
+ from{width:0}
+ to{width:350px}
+}
+
+@keyframes blink{
+ 50%{border-color:transparent}
+}
+
 @keyframes heartbeat{
  0%{text-shadow:0 0 5px pink;}
  50%{text-shadow:0 0 20px pink;}
@@ -60,6 +69,7 @@ button{
  width:100%;
  height:100%;
  background-size:cover;
+ background-position:center;
  filter:blur(12px) brightness(0.5);
  z-index:-1;
 }
@@ -70,6 +80,7 @@ button{
  padding:12px 20px;
  border-radius:40px;
  margin-bottom:10px;
+ max-width:600px;
 }
 
 .main{
@@ -119,51 +130,200 @@ button{
  50%{transform:translateY(-10px);}
  100%{transform:translateY(0);}
 }
+
+/* MEMORY SCENE */
+#memoryScene{
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ height:100%;
+ background:url("meandher2.png") center/cover no-repeat;
+ z-index:9999;
+}
+
+#memoryOverlay{
+ width:100%;
+ height:100%;
+ background:rgba(0,0,0,0.5);
+
+ display:flex;
+ justify-content:flex-end;
+ align-items:center;
+ flex-direction:column;
+
+ text-align:center;
+
+ padding-bottom:90px;
+ padding-left:20px;
+ padding-right:20px;
+}
+
+#memoryTitle{
+ font-size:36px;
+ cursor:pointer;
+
+ padding:25px 40px;
+ border-radius:25px;
+
+ background:rgba(255,255,255,0.12);
+
+ backdrop-filter:blur(8px);
+
+ border:1px solid rgba(255,255,255,0.25);
+
+ box-shadow:0 0 25px rgba(255,255,255,0.2);
+
+ animation:glow 3s infinite alternate;
+}
+
+#memoryMsg{
+ opacity:0;
+ font-size:26px;
+ line-height:1.8;
+ margin-top:40px;
+ max-width:850px;
+}
+
+.showMsg{
+ animation:showMessage 4s forwards;
+}
+
+@keyframes showMessage{
+ from{
+  opacity:0;
+  transform:translateY(30px);
+ }
+ to{
+  opacity:1;
+  transform:translateY(0);
+ }
+}
+
+@keyframes glow{
+ from{
+  opacity:0.8;
+ }
+ to{
+  opacity:1;
+  text-shadow:0 0 25px white;
+ }
+}
 </style>
 </head>
 
 <body>
 
-<div class="center" id="intro1">Loading...</div>
+<!-- FIRST SCREEN -->
+<div class="center" id="intro1"
+style="
+background:url('birthday_template.jpg') center/cover no-repeat;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+">
 
+<h1 style="
+font-size:45px;
+text-shadow:0 0 20px black;
+margin-bottom:40px;
+">
+
+🎂 Happy Birthday Sree 💖✨
+
+</h1>
+
+<button onclick="startJourney()"
+style="
+position:absolute;
+bottom:70px;
+padding:14px 28px;
+font-size:18px;
+">
+
+🌍💖 Let’s go into your world ✨🌸
+
+</button>
+
+</div>
+
+<!-- READY -->
 <div class="center" id="intro2">
+
 <img src="cat.gif" width="140">
-<h2>Ready for the surprise? 💖</h2>
-<button onclick="goLogin()">Yes 💌</button>
+
+<h2>
+Ready for the surprise? 💖
+</h2>
+
+<button onclick="goLogin()">
+Yes 💌
+</button>
+
 </div>
 
 <!-- LOGIN -->
 <div class="center" id="login">
-<h2 id="loginText">💌 PLEASE ENTER UR HEART💖✨</h2>
+
+<h2 id="loginText">
+💌 PLEASE ENTER UR SOUL HERE! 💖✨
+</h2>
+
 <input id="code">
+
 <br><br>
-<button onclick="checkCode()">Enter 💖</button>
+
+<button onclick="checkCode()">
+Enter 💖
+</button>
+
 </div>
 
 <!-- AFTER TEDDY -->
 <div class="center" id="unlock">
+
 <img src="dog.gif" width="180">
-<h2>Let’s begin this little journey 💖✨</h2>
-<button onclick="startStory()">Start 💌</button>
+
+<h2>
+Let’s begin this little journey 💖✨
+</h2>
+
+<button onclick="startStory()">
+Start 💌
+</button>
+
 </div>
 
 <div id="slides"></div>
 
 <!-- BEFORE LETTER -->
 <div class="center" id="finalCode">
+
 <img src="princess.gif" width="180">
 
-<h2>✨ Not everyone gets to read this… only you 💖</h2>
+<h2>
+✨ Not everyone gets to read this… only you 💖
+</h2>
 
 <input id="code2">
+
 <br><br>
-<button onclick="checkFinal()">Open 💌</button>
+
+<button onclick="checkFinal()">
+Open 💌
+</button>
+
 </div>
 
 <!-- LETTER -->
 <div class="center" id="letter">
+
 <p id="text"></p>
+
 <img src="bear.gif" width="150">
+
 </div>
 
 <div class="center" id="ending">
@@ -171,55 +331,121 @@ button{
 </div>
 
 <div class="center" id="gift">
-<h2>🎁 One last thing… just for you 💖</h2>
-<button onclick="showGift()">Open 💝</button>
+
+<h2>
+🎁 One last thing… just for you 💖
+</h2>
+
+<button onclick="showGift()">
+Open 💝
+</button>
+
 </div>
 
 <!-- FINAL -->
 <div id="finalScene">
+
 <div id="familyContainer">
+
 <img src="family.jpg" id="familyPhoto">
+
 <p id="finalMsg">
+
 YOUR FAMILY IS YOUR STRENGTH 💖<br>
+
 NEVER UNDERESTIMATE YOURSELF 🌸<br>
+
 CAN I BE ONE OF THE PILLARS OF YOUR STRENGTH? 🤍
+
 </p>
+
 </div>
 
 <audio id="familyBgm" src="family_bgm.mp3" loop></audio>
+
 </div>
 
-<audio id="music" src="The-Birthday-Gift-MassTamilan.fm.mp3" loop></audio>
+<!-- MEMORY SCENE -->
+<div id="memoryScene">
+
+<div id="memoryOverlay">
+
+<div id="memoryTitle"
+onclick="showMemoryMessage()">
+
+✨ Somewhere between memories and imagination ✨
+
+</div>
+
+<p id="memoryMsg">
+
+🌸 Wherever life takes us,<br><br>
+
+a part of me will always wish you well. 💖<br><br>
+
+Thank you for coming into my life. ✨<br><br>
+
+Once again… Happy Birthday Sree!!! 🎂🌙
+
+</p>
+
+</div>
+
+</div>
+
+<audio id="memoryBgm"
+src="A_Mothers_Love_Instrumental_Theme_[SamaDada.Com].mp3"
+loop></audio>
+
+<audio id="music"
+src="Adhento Gaani Vunnapaatuga - SenSongsMp3.Co_Audio Trimmer.mp3"
+loop></audio>
 
 <script>
 
-/* intro */
-setTimeout(()=>{
+/* START */
+function startJourney(){
+
  intro1.style.display="none";
+
  intro2.style.display="flex";
-},2000);
+
+}
 
 function goLogin(){
+
  intro2.style.display="none";
+
  login.style.display="flex";
+
 }
 
 function checkCode(){
+
  if(code.value=="teddy"){
+
   login.style.display="none";
+
   music.play().catch(()=>{});
+
   unlock.style.display="flex";
+
  }
+
 }
 
 function startStory(){
+
  unlock.style.display="none";
+
  slides.style.display="block";
+
  showSlide();
+
 }
 
 /* QUOTES */
-const quotes=[ ...Array(22).keys() ].map(i=>[
+const quotes=[ ...Array(23).keys() ].map(i=>[
 "You are special because you always cared deeply.",
 "Your smile could change even my worst days.",
 "You had a heart that gave without expecting.",
@@ -241,72 +467,136 @@ const quotes=[ ...Array(22).keys() ].map(i=>[
 "You inspire growth.",
 "I wish you peace.",
 "You bring calm.",
-"You deserve happiness."
+"You deserve happiness.",
+"Some people become memories… but some become a part of who we are."
 ][i]);
 
 let i=0;
 
 function showSlide(){
- if(i>=22){
+
+ if(i>=23){
+
   slides.innerHTML="";
+
   finalCode.style.display="flex";
+
   return;
+
  }
 
  slides.innerHTML=`
+
  <div class="center">
-   <div class="bg-blur" style="background-image:url('img${i+1}.jpg')"></div>
-   <div class="cloud">${quotes[i]}</div>
-   <img class="main" src="img${i+1}.jpg">
+
+   <div class="bg-blur"
+   style="background-image:url('img${i+1}.jpg')"></div>
+
+   <div class="cloud">
+   ${quotes[i]}
+   </div>
+
+   <img class="main"
+   src="img${i+1}.jpg">
+
  </div>
+
  `;
 
  i++;
+
  setTimeout(showSlide,4000);
+
 }
 
 /* LETTER TYPE EFFECT */
 function typeText(text, i=0){
+
  if(i < text.length){
-  document.getElementById("text").innerHTML += text.charAt(i);
-  setTimeout(()=>typeText(text, i+1), 30);
+
+  document.getElementById("text")
+  .innerHTML += text.charAt(i);
+
+  setTimeout(()=>{
+   typeText(text, i+1)
+  },30);
+
  }
+
 }
 
 function checkFinal(){
+
  if(code2.value=="sree"){
+
   finalCode.style.display="none";
+
   letter.style.display="flex";
 
   let message="I genuinely hope this year brings you happiness, peace, and beautiful moments 💖✨🌸";
+
   typeText(message);
 
   setTimeout(showEnding,5000);
+
  }
+
 }
 
 function showEnding(){
+
  letter.style.display="none";
+
  ending.style.display="flex";
+
  name.innerHTML="Sree 💖";
 
  setTimeout(()=>{
+
   ending.style.display="none";
+
   gift.style.display="flex";
+
  },3000);
+
 }
 
 /* FINAL */
 function showGift(){
+
  music.pause();
+
  familyBgm.play().catch(()=>{});
 
  gift.style.display="none";
+
  finalScene.style.display="block";
 
  setTimeout(()=>{
   familyContainer.style.opacity=1;
  },2000);
+
+ /* MEMORY SCENE */
+ setTimeout(()=>{
+
+  finalScene.style.display="none";
+
+  familyBgm.pause();
+
+  memoryBgm.play().catch(()=>{});
+
+  memoryScene.style.display="block";
+
+ },12000);
+
+}
+
+/* MEMORY MESSAGE */
+function showMemoryMessage(){
+
+ document.getElementById("memoryMsg")
+ .classList.add("showMsg");
+
 }
 
 </script>
