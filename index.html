@@ -361,8 +361,8 @@ CAN I BE ONE OF THE PILLARS OF YOUR STRENGTH? 🤍
 
 </div>
 
-<audio id="familyBgm" loop>
-<source src="https://raw.githubusercontent.com/ComicSunset/birthday_website/main/music2.mp3" type="audio/mpeg">
+<audio id="familyBgm" loop preload="auto">
+<source src="music2.mp3" type="audio/mpeg">
 </audio>
 
 </div>
@@ -395,12 +395,12 @@ Once again… Happy Birthday Sree!!! 🎂🌙
 
 </div>
 
-<audio id="memoryBgm" loop>
-<source src="https://raw.githubusercontent.com/ComicSunset/birthday_website/main/music3.mp3" type="audio/mpeg">
+<audio id="memoryBgm" loop preload="auto">
+<source src="music3.mp3" type="audio/mpeg">
 </audio>
 
 <audio id="music" loop preload="auto">
-<source src="https://raw.githubusercontent.com/ComicSunset/birthday_website/main/music1.mp3" type="audio/mpeg">
+<source src="music1.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -412,15 +412,15 @@ function startJourney(){
 
  let playPromise = music.play();
 
- if (playPromise !== undefined) {
+ if(playPromise !== undefined){
 
-  playPromise.then(() => {
+  playPromise.then(()=>{
 
    console.log("Audio started");
 
-  }).catch(error => {
+  }).catch((error)=>{
 
-   alert("Audio failed: " + error);
+   console.log("Audio blocked:", error);
 
   });
 
