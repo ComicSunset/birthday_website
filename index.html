@@ -268,7 +268,7 @@ Yes 💌
 <div class="center" id="login">
 
 <h2 id="loginText">
-💌 PLEASE ENTER UR HEART 💖✨
+💌 PLEASE ENTER UR SOUL TO UNLOCK 💖✨
 </h2>
 
 <input id="code">
@@ -361,7 +361,9 @@ CAN I BE ONE OF THE PILLARS OF YOUR STRENGTH? 🤍
 
 </div>
 
-<audio id="familyBgm" src="music2.mp3" loop></audio>
+<audio id="familyBgm" loop>
+<source src="https://raw.githubusercontent.com/ComicSunset/birthday_website/main/music2.mp3" type="audio/mpeg">
+</audio>
 
 </div>
 
@@ -393,20 +395,36 @@ Once again… Happy Birthday Sree!!! 🎂🌙
 
 </div>
 
-<audio id="memoryBgm" src="music3.mp3" loop></audio>
+<audio id="memoryBgm" loop>
+<source src="https://raw.githubusercontent.com/ComicSunset/birthday_website/main/music3.mp3" type="audio/mpeg">
+</audio>
 
-<audio id="music" src="music1.mp3" loop></audio>
+<audio id="music" loop preload="auto">
+<source src="https://raw.githubusercontent.com/ComicSunset/birthday_website/main/music1.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 
 /* START */
 function startJourney(){
 
- music.volume=0.4;
+ music.volume = 0.4;
 
- music.play().catch((e)=>{
-   console.log("Music blocked:", e);
- });
+ let playPromise = music.play();
+
+ if (playPromise !== undefined) {
+
+  playPromise.then(() => {
+
+   console.log("Audio started");
+
+  }).catch(error => {
+
+   alert("Audio failed: " + error);
+
+  });
+
+ }
 
  intro1.style.display="none";
 
