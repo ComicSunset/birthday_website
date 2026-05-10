@@ -268,7 +268,7 @@ Yes 💌
 <div class="center" id="login">
 
 <h2 id="loginText">
-💌 PLEASE ENTER UR SOUL HERE! 💖✨
+💌 PLEASE ENTER UR HEART 💖✨
 </h2>
 
 <input id="code">
@@ -361,7 +361,7 @@ CAN I BE ONE OF THE PILLARS OF YOUR STRENGTH? 🤍
 
 </div>
 
-<audio id="familyBgm" src="family_bgm.mp3" loop></audio>
+<audio id="familyBgm" src="music2.mp3" loop></audio>
 
 </div>
 
@@ -393,18 +393,20 @@ Once again… Happy Birthday Sree!!! 🎂🌙
 
 </div>
 
-<audio id="memoryBgm"
-src="A_Mothers_Love_Instrumental_Theme_[SamaDada.Com].mp3"
-loop></audio>
+<audio id="memoryBgm" src="music3.mp3" loop></audio>
 
-<audio id="music"
-src="Adhento Gaani Vunnapaatuga - SenSongsMp3.Co_Audio Trimmer.mp3"
-loop></audio>
+<audio id="music" src="music1.mp3" loop></audio>
 
 <script>
 
 /* START */
 function startJourney(){
+
+ music.volume=0.4;
+
+ music.play().catch((e)=>{
+   console.log("Music blocked:", e);
+ });
 
  intro1.style.display="none";
 
@@ -425,8 +427,6 @@ function checkCode(){
  if(code.value=="teddy"){
 
   login.style.display="none";
-
-  music.play().catch(()=>{});
 
   unlock.style.display="flex";
 
